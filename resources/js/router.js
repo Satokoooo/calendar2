@@ -1,21 +1,29 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import Welcome from './pages/Welcome.vue';
 import Calendar from './pages/Calendar.vue';
+import Memo from './pages/Memo.vue';
+import Task from './pages/Task.vue';
 
 
 Vue.use(VueRouter);
 
 const routes = [
     {
-        path: '/calendar/welcome',
-        name: 'welcome',
-        component: Welcome
+        path: '/calendar',
+        name: 'calendar',
+        component: Calendar
     },
     {
-        path: '/calendar',
-        component: Calendar
+        path: '/calendar/memo',
+        name: 'memo',
+        component: Memo
+    },
+    {
+        path: '/calendar/task',
+        name: 'task',
+        component: Task
+
     }
 ];
 

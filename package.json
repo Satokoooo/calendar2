@@ -10,6 +10,7 @@
         "production": "mix --production"
     },
     "devDependencies": {
+        "@mdi/font": "^7.1.96",
         "@popperjs/core": "^2.11.6",
         "axios": "^0.25",
         "bootstrap": "^5.2.3",

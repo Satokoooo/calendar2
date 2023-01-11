@@ -13,6 +13,9 @@ class Task extends Model
     
     public static $rules = array(
         'title' => 'required',
-        'category_id' => 'required',
     );
+    
+    public function category(){
+        return $this->belongsTo('App\Models\Category');
+    }
 }
