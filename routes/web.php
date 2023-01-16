@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');;
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
 Route::get('/calendar', function () {
     return view('calendar');
 })->middleware('auth');
@@ -29,3 +29,5 @@ Route::get('/calendar/{any}', function () {
 })->where('any','.*')->middleware('auth');
 
 Route::get('ajax/memo', [App\Http\Controllers\Ajax\MemoController::class, 'index'])->name('ajax_memo');
+Route::get('ajax/category', [App\Http\Controllers\Ajax\CategoryController::class, 'index'])->name('ajax_category');
+Route::get('ajax/task', [App\Http\Controllers\Ajax\TaskController::class, 'index'])->name('ajax_task');

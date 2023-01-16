@@ -23,6 +23,5 @@ class CategoryController extends Controller
         $category->save();
         
         return $category;
-        
     }
 }

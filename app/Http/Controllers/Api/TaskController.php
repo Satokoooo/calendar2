@@ -22,6 +22,7 @@ class TaskController extends Controller
         // $memo->text=$form->text;
         $task->fill($form);
         $task->user_id=Auth::id();
+        // $task->user_id=1;
         $task->save();
         return $task;
     }

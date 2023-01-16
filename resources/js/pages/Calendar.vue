@@ -24,17 +24,23 @@
         </v-menu>
         <v-list-item>
           <v-list-item-title>
-            <v-icon>far fa-calendar-alt</v-icon>
+            <router-link to="/calendar">
+              <v-icon>far fa-calendar-alt</v-icon>
+            </router-link>
           </v-list-item-title>
         </v-list-item>
         <v-list-item>
           <v-list-item-title>
-            <v-icon>far fa-check-square</v-icon>
+            <router-link to="/calendar/task">
+              <v-icon>far fa-check-square</v-icon>
+            </router-link>
           </v-list-item-title>
         </v-list-item>
-        <v-list-item @click="showMemoResister()">
+        <v-list-item>
           <v-list-item-title>
-            <v-icon>far fa-edit</v-icon>
+            <router-link to="/calendar/memo">
+              <v-icon>far fa-edit</v-icon>
+            </router-link>
           </v-list-item-title>
         </v-list-item>
       </v-list>

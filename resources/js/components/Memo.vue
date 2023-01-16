@@ -16,32 +16,29 @@
                   <v-list-item-title>予定</v-list-item-title>
                 </v-list-item>
                 <v-list-item link>
-                  <v-list-item-title>タスク</v-list-item-title>
+                  
                 </v-list-item>
-                <v-list-item link @click="showMemoRegister()">
+                <router-link to="/task">
+                  <v-list-item-title>タスク</v-list-item-title>
+                </router-link>
+                <v-list-item link @click="showMemoResister()">
                   <v-list-item-title>メモ</v-list-item-title>
                 </v-list-item>
               </v-list>
             </v-menu>
             <v-list-item>
               <v-list-item-title>
-                <router-link to="/calendar">
-                  <v-icon>far fa-calendar-alt</v-icon>
-                </router-link>
+                <v-icon>far fa-calendar-alt</v-icon>
               </v-list-item-title>
             </v-list-item>
             <v-list-item>
               <v-list-item-title>
-                <router-link to="/calendar/task">
-                  <v-icon>far fa-check-square</v-icon>
-                </router-link>
+                <v-icon>far fa-check-square</v-icon>
               </v-list-item-title>
             </v-list-item>
-            <v-list-item>
+            <v-list-item @click="showMemoResister()">
               <v-list-item-title>
-                <router-link to="/calendar/memo">
-                  <v-icon>far fa-edit</v-icon>
-                </router-link>
+                <v-icon>far fa-edit</v-icon>
               </v-list-item-title>
             </v-list-item>
           </v-list>
@@ -143,10 +140,10 @@
       </v-container>
       <template>
         <template>
-              <v-btn color="primary" dark @click="showMemoRegister()">新規作成</v-btn>
+              <v-btn color="primary" dark @click="showMemoResister()">新規作成</v-btn>
         </template>
         <v-row justify="center">
-          <v-dialog v-model="memoRegister" persistent max-width="600px">
+          <v-dialog v-model="memoResister" persistent max-width="600px">
             <v-card>
               <v-card-title>
                 <span class="text-h5">メモ新規作成</span>
@@ -177,7 +174,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn　color="blue darken-1" text @click="closeMemoRegister()">キャンセル</v-btn>
+                <v-btn　color="blue darken-1" text @click="closeMemoResister()">キャンセル</v-btn>
                 <v-btn　color="blue darken-1" text @click="createNewMemo()">登録</v-btn>
               </v-card-actions>
             </v-card>
@@ -215,7 +212,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn　color="blue darken-1" text @click="closeEditMemo()">キャンセル</v-btn>
+                <v-btn　color="blue darken-1" text @click="closeEditResister()">キャンセル</v-btn>
                 <v-btn　color="blue darken-1" text @click="updateMemo()">更新</v-btn>
               </v-card-actions>
             </v-card>
@@ -278,7 +275,7 @@
         return{
           drawer: true,
           dialog: false,
-          memoRegister: false,
+          memoResister: false,
           editMemo: false,
           memos: {},
           memoTitle: "",
@@ -332,12 +329,12 @@
           });
           this.$router.go({path: '/calendar/memo', force: true});
         },
-        showMemoRegister:function(){
-          this.memoRegister = true;
+        showMemoResister:function(){
+          this.memoResister = true;
           console.log(this.memoResister);
         },
-        closeMemoRegister:function(){
-          this.memoRegister = false;
+        closeMemoResister:function(){
+          this.memoResister = false;
         }
       },
       mounted: function() {

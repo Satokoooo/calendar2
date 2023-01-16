@@ -3,10 +3,6 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Memo;
-// use App\Models\Task;
-// use App\Models\Schedule;
-// use App\Models\Color;
-// use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -49,7 +45,8 @@ Route::controller(App\Http\Controllers\Api\CategoryController::class)->group(fun
 //     return App\Models\Memo::all();
 // });
 
-Route::middleware('auth:sanctum')->post('memos', function(Request $request) {
+// middleware('auth:sanctum')->
+Route::post('memos', function(Request $request) {
     $memo = new Memo();
     
     $form = $request->all();
@@ -58,10 +55,12 @@ Route::middleware('auth:sanctum')->post('memos', function(Request $request) {
     // $memo->title=$form->title;
     // $memo->text=$form->text;
     $memo->fill($form);
+    return $memo;
+    //  return $request->user('api');
     $memo->user_id = Auth::id();
     // $memo->user_id=1;
     
-    return $request->user();
+   
     
     $memo->save();
     // return $memo;
