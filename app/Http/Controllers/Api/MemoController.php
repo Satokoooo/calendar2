@@ -28,7 +28,7 @@ class MemoController extends Controller
         $memo->user_id=Auth::id();
         // dd(Auth);    
         // $memo->save();
-        return \Auth::id();
+        return $request->user('api');
     }
     
     public function destroy($id) {

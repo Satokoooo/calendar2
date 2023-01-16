@@ -15,31 +15,55 @@
                     <v-list-item link>
                       <v-list-item-title>予定</v-list-item-title>
                     </v-list-item>
-                    <v-list-item link @click="showTaskResister()">
+                    <v-list-item link @click="showTaskRegister()">
                       <v-list-item-title>タスク</v-list-item-title>
                     </v-list-item>
-                    <v-list-item link @click="showMemoResister()">
+                    <v-list-item link @click="showMemoRegister()">
                       <v-list-item-title>メモ</v-list-item-title>
                     </v-list-item>
                   </v-list>
                 </v-menu>
                 <v-list-item>
                   <v-list-item-title>
-                    <v-icon>far fa-calendar-alt</v-icon>
+                    <router-link to="/calendar">
+                      <v-icon>far fa-calendar-alt</v-icon>
+                    </router-link>
                   </v-list-item-title>
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-title>
-                    <v-icon>far fa-check-square</v-icon>
+                    <router-link to="/calendar/task">
+                      <v-icon>far fa-check-square</v-icon>
+                    </router-link>
                   </v-list-item-title>
                 </v-list-item>
-                <v-list-item @click="showMemoResister()">
+                <v-list-item>
                   <v-list-item-title>
-                    <v-icon>far fa-edit</v-icon>
+                    <router-link to="/calendar/memo">
+                      <v-icon>far fa-edit</v-icon>
+                    </router-link>
                   </v-list-item-title>
                 </v-list-item>
               </v-list>
             </v-navigation-drawer>
+            <v-row justify="space-around">
+              <v-col cols="6">
+                <v-select
+                  v-model="selectedCategory"
+                  :items="categories"
+                  item-text="name"
+                  item-value="id"
+                  label="カテゴリー"
+                  return-object
+                  single-line>
+                </v-select>
+              </v-col>
+              <v-col clos="3">
+                <v-btn @click="showCategoryRegister()" class="ma-2" outlined color="indigo">
+                  カテゴリ追加
+                </v-btn>
+              </v-col>
+            </v-row>
             <v-row justify="space-around">
               <v-col v-for="task in tasks" :key="task" cols="5" md="4">
                 <v-card class="mb-5">
@@ -58,7 +82,7 @@
               </v-col>
             </v-row>
         </v-container>
-        <v-container fill-height justify="center" style="width: 500px;" class="ma-auto">
+        <v-container fill-height justify="center" style="width: 500px;" class="ma-auto" v-if="categoryRegister">
           <v-card class="py-12 px-5" >
             <v-card-title>カテゴリ登録</v-card-title>
             <v-form>
@@ -74,45 +98,92 @@
             <v-btn @click="createNewCategory()" color="#66BB6A" class="mx-2">登録</v-btn>
           </v-card>
         </v-container>
-        <v-container fill-height justify="center" style="width: 500px;" class="ma-auto" v-if="taskResister">
-          <v-card class="py-12 px-5" >
-                <v-card-title>タスク登録</v-card-title>
-                    <v-form>
+        <template>
+          <v-row justify="center">
+            <v-dialog v-model="taskRegister" persistent max-width="600px">
+              <v-card>
+                <v-card-title>
+                  <span class="text-h5">タスク登録</span>
+                </v-card-title>
+                <v-card-text>
+                  <v-container>
                       <v-col cols="12">
                         <v-text-field
                           label="タイトル"
                           name="title"
                           type="text"
                           v-model="taskTitle"
-                        />
+                          required
+                        ></v-text-field>
                       </v-col>
                       <v-col cols="12">
-                        <v-select :items="categories" label="カテゴリ" item-title="name" item-value="id" v-model="selectedCategory"></v-select>
+                        <v-select
+                          v-model="selectedCategory"
+                          :items="categories"
+                          item-text="name"
+                          item-value="id"
+                          label="カテゴリー"
+                          return-object
+                          single-line>
+                        </v-select>
                       </v-col>
                       <v-col cols="12">
-                        <v-textarea
+                        <v-text-field
                           label="テキスト"
                           name="text"
                           type="text"
                           v-model="taskText"
-                        />
+                          required
+                        ></v-text-field>
                       </v-col>
-                    </v-form>
-                <v-row justify="center">
-                  <v-btn @click="closeTaskResister()" color="#B0BEC5" class="mx-2">キャンセル</v-btn>
-                  <v-btn @click="createNewTask()" color="#66BB6A" class="mx-2">登録</v-btn>
-                </v-row>
-          </v-card>
-        </v-container>
-        <v-card>
-            <v-list>
-                <!--<v-list-itemv-for="task in tasks">-->
-                <!--    <v-text>{{ task.name }}</v-text>-->
-                <!--    <v-text>{{ task.category }}</v-text>-->
-                <!--    <v-text>{{ task.text }}</v-text>-->
-                <!--</v-list-item>-->
-            </v-list>
-        </v-card>
+                    </v-container>
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn　color="blue darken-1" text @click="closeTaskRegister()">キャンセル</v-btn>
+                  <v-btn　color="blue darken-1" text @click="createNewTask()">登録</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </v-row>
+        </template>
+        <!--<v-container fill-height justify="center" style="width: 500px;" class="ma-auto" v-if="taskRegister">-->
+        <!--  <v-card class="py-12 px-5" >-->
+        <!--        <v-card-title>タスク登録</v-card-title>-->
+        <!--            <v-form>-->
+        <!--              <v-col cols="12">-->
+        <!--                <v-text-field-->
+        <!--                  label="タイトル"-->
+        <!--                  name="title"-->
+        <!--                  type="text"-->
+        <!--                  v-model="taskTitle"-->
+        <!--                />-->
+        <!--              </v-col>-->
+        <!--              <v-col cols="12">-->
+        <!--                <v-select :items="categories" label="カテゴリ" item-title="name" item-value="id" v-model="selectedCategory"></v-select>-->
+        <!--              </v-col>-->
+        <!--              <v-col cols="12">-->
+        <!--                <v-textarea-->
+        <!--                  label="テキスト"-->
+        <!--                  name="text"-->
+        <!--                  type="text"-->
+        <!--                  v-model="taskText"-->
+        <!--                />-->
+        <!--              </v-col>-->
+        <!--            </v-form>-->
+        <!--        <v-row justify="center">-->
+        <!--          <v-btn @click="closeTaskRegister()" color="#B0BEC5" class="mx-2">キャンセル</v-btn>-->
+        <!--          <v-btn @click="createNewTask()" color="#66BB6A" class="mx-2">登録</v-btn>-->
+        <!--        </v-row>-->
+        <!--  </v-card>-->
+        <!--</v-container>-->
+          <v-list>
+              <!--<v-list-itemv-for="task in tasks">-->
+              <!--    <v-text>{{ task.name }}</v-text>-->
+              <!--    <v-text>{{ task.category }}</v-text>-->
+              <!--    <v-text>{{ task.text }}</v-text>-->
+              <!--</v-list-item>-->
+          </v-list>
         </v-container>
     </v-app>
     
@@ -121,8 +192,16 @@
     export default {
         data: function() {
             return{
+                // selectedCategory: { name: '仕事', id: '1' },
+                // items: [
+                //   { name: '仕事', id: '1' },
+                //   { name: '趣味', id: '2' },
+                //   { name: '旅行', id: '3' },
+                //   { name: '引っ越し', id: '4' },
+                // ],
                 drawer: true,
-                taskResister: false,
+                taskRegister: false,
+                categoryRegister: false,
                 tasks: {},
                 taskTitle: "",
                 taskText: "",
@@ -134,6 +213,9 @@
             };
         },
         methods: {
+            showCategoryRegister: function(){
+              this.categoryRegister = true;
+            },
             createNewCategory: function(){
               axios.post('/api/categories', {name:this.categoryName})
               .then((response) => {
@@ -143,15 +225,15 @@
                 console.log(error);
               });
             },
-            showTaskResister: function(){
-                this.taskResister = true;
+            showTaskRegister: function(){
+                this.taskRegister = true;
             },
-            closeTaskResister: function(){
-                this.taskResister = false;
+            closeTaskRegister: function(){
+                this.taskRegister = false;
             },
             createNewTask:function(){
-              // console.log(this.selectedCategory);
-                axios.post('/api/tasks', {title:this.taskTitle, text:this.taskText, category_id:this.selectedCategory})
+              console.log(this.selectedCategory);
+                axios.post('/api/tasks', {title:this.taskTitle, text:this.taskText, category_id:this.selectedCategory.id})
                 .then((response) => {
                   console.log(response);
                 })

@@ -7,7 +7,7 @@
      <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Laravel</title>
+    <title>Calendar</title>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Scripts -->
@@ -18,24 +18,22 @@
     <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
 </head>
 <body>
-     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">-->
+     <nav class="navbar navbar-expand-md navbar-light" style="height:50px","background-color:#f5f5f5">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
+                <a class="navbar-brand" href="{{ url('/calendar') }}">calendar</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                     Left Side Of Navbar 
+                     <!--Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
 
                     </ul>
 
-                     Right Side Of Navbar 
+                     <!--Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
-                         Authentication Links 
+                         <!--Authentication Links -->
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
